@@ -4,6 +4,8 @@ from django.shortcuts import render, redirect
 from accounts.forms import LogInForm, SignUpForm
 
 # Create your views here.
+
+
 def user_login(request):
     if request.method == "POST":
         form = LogInForm(request.POST)

@@ -1,35 +1,31 @@
 {% extends 'base.html' %}
+
 {% block content %}
-<main>
-    <div>
-        <h1>My Projects</h1>
-        <a href="{% url 'create_project' %}">Create a new project</a>
-        {% if not list_projects %}
-        <p>You are not assigned to any projects</p>
-        {% endif %}
-        {% if list_projects %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Number of tasks</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for project in list_projects %}
-                <tr>
-                    <td>
-                        <a href="{% url 'show_project' project.id %}">{{project.name}}</a>
-                    </td>
-                    <td>{{project.tasks.all|length}}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-        {% endif %}
-    </div>
-</main>
-
-
+    <main>
+        <div>
+            <h1>My Projects</h1>
+            <a href="{% url 'create_project' %}">Create a new project</a>
+            {% if not list_projects %}<p>You are not assigned to any projects</p>{% endif %}
+            {% if list_projects %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Number of tasks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for project in list_projects %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'show_project' project.id %}">{{ project.name }}</a>
+                                </td>
+                                <td>{{ project.tasks.all|length }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+    </main>
 {% endblock content %}
