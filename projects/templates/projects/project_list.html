@@ -1,45 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% block content %}
+<main>
+    <div>
+        <h1>My Projects</h1>
+        <a href="{% url 'create_project' %}">Create a new project</a>
+        {% if not list_projects %}
+        <p>You are not assigned to any projects</p>
+        {% endif %}
+        {% if list_projects %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Number of tasks</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for project in list_projects %}
+                <tr>
+                    <td>
+                        <a href="{% url 'show_project' project.id %}">{{project.name}}</a>
+                    </td>
+                    <td>{{project.tasks.all|length}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects</title>
-</head>
+        {% endif %}
+    </div>
+</main>
 
-<body>
-    <main>
-        <div>
-            <h1>My Projects</h1>
-            <a href="{% url 'create_project' %}">Create a new project</a>
-            {% if not list_projects %}
-            <p>You are not assigned to any projects</p>
-            {% endif %}
-            {% if list_projects %}
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Number of tasks</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for project in list_projects %}
-                    <tr>
-                        <td>
-                            <a href="{% url 'show_project' project.id %}">{{project.name}}</a>
-                        </td>
-                        <td>{{project.tasks.all|length}}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
 
-            {% endif %}
-        </div>
-    </main>
-
-</body>
-
-</html>
+{% endblock content %}
